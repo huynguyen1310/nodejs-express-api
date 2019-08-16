@@ -7,10 +7,13 @@ require('dotenv/config');
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.json());
 
 const postRoute = require('./routes/posts');
+const authRoute = require('./routes/auth');
 
-app.use('/posts' , postRoute);
+app.use('/api/posts' , postRoute);
+app.use('/api/user' , authRoute);
 
 
 mongoose.connect(`${process.env.DB_CONNECTION}`,

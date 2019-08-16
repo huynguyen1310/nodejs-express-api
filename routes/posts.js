@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
+const verifyToken = require('../verifyToken');
 
-router.get('/' , async (req,res) => {
+router.get('/' , verifyToken.auth , async (req,res) => {
     try {
         const posts = await Post.find();
         res.json(posts)
@@ -11,7 +12,7 @@ router.get('/' , async (req,res) => {
     }
 });
 
-router.post('/', async (req,res) => {
+router.post('/' , verifyToken.auth , async (req,res) => {
     const post = new Post({
         title : req.body.title,
         desc : req.body.desc
